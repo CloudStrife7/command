@@ -130,8 +130,9 @@ Starting MS-DOS... <span class="blinking-cursor">|</span>
 </div>
 
 <div id="terminal" style="display:none;">
-Welcome to Zach's Terminal...
------------------------------------------------- This is my simple page to tell you about my projects. ------------------------------------------------
+  <div id="terminal-content" style="display:none;">
+    Welcome to Zach's Terminal...
+    ------------------------------------------------ This is my simple page to tell you about my projects. ------------------------------------------------
 
 <div class="folder" onclick="toggleContent('gameIdeas')">C:\Projects\game-ideas\</div>
 <div id="gameIdeas" class="content">
@@ -161,8 +162,9 @@ Welcome to Zach's Terminal...
 <div id="music" class="content">
   - chiptune.mp3
   - retro-theme.wav
-</div>
-</div>
+  </div> <!-- end of terminal-content -->
+</div> <!-- end of terminal -->
+
 
 <script>
   function toggleContent(id) {
@@ -181,10 +183,14 @@ Welcome to Zach's Terminal...
     }
   }
 
-  function showTerminal() {
-    document.getElementById('second-boot').style.display = 'none';
-    document.getElementById('terminal').style.display = 'block';
-  }
+function showTerminal() {
+  document.getElementById('second-boot').style.display = 'none';
+  document.getElementById('terminal').style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('terminal-content').style.display = 'block';
+  }, 1000); // delay to simulate boot transition
+}
+
 
   function startBoot() {
     document.getElementById('power-screen').style.display = 'none';
