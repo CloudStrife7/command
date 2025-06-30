@@ -95,7 +95,7 @@
     EPA POLLUTION PREVENTER
   </div>
   <div id="boot-lines"></div>
-  <div id="boot-line" style="display:none; position:absolute; bottom:10px; left:10px;">Press DEL to enter SETUP</div>
+  <div id="boot-line" style="position:absolute; bottom:10px; left:10px;">Press DEL to enter SETUP</div>
 </div>
 
 <div id="second-boot" style="white-space:pre; color:#ccc; font-family:monospace; display: none;">
@@ -129,39 +129,7 @@ Starting MS-DOS... <span class="blinking-cursor">|</span>
   </div>
 </div>
 
-<div id="terminal" style="display:none;">
-  <div id="welcome">Welcome to Zach's Terminal...<span class="blinking-cursor">|</span></div>
-  <div id="intro">------------------------------------------------ This is my simple page to tell you about my projects. -------------------------------------------------</div>
-
-  <div class="dir">
-    <span class="folder" onclick="toggleContent('game-ideas')">C:\Projects\game-ideas\</span>
-    <div id="game-ideas" class="content">[Game ideas content here]</div>
-
-    <span class="folder" onclick="toggleContent('vrchat-worlds')">C:\Projects\vrchat-worlds\</span>
-    <div id="vrchat-worlds" class="content">[VRChat worlds content here]</div>
-
-    <span class="folder" onclick="toggleContent('artwork')">C:\Projects\artwork\</span>
-    <div id="artwork" class="content">[Artwork content here]</div>
-
-    <span class="folder" onclick="toggleContent('blog-posts')">C:\Projects\blog-posts\</span>
-    <div id="blog-posts" class="content">[Blog posts content here]</div>
-
-    <span class="folder" onclick="toggleContent('music')">C:\Projects\music\</span>
-    <div id="music" class="content">
-      -------- Album 1<br>
-      -------- Album 2<br>
-      -------- Album 3<br>
-      <div class="ascii-player" onclick="toggleMusic()">
-        +-----------------------------+<br>
-        | ZachAMP v1.0                |<br>
-        |-----------------------------|<br>
-        | ▶ Pixel Dreams              |<br>
-        +-----------------------------+
-      </div>
-      // Experimental soundtracks and synth-driven compositions.
-    </div>
-  </div>
-</div>
+<div id="terminal" style="display:none;"></div>
 
 <script>
   function toggleContent(id) {
