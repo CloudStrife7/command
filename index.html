@@ -4,6 +4,9 @@
     color: #ccc;
     font-family: monospace;
     margin: 20px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
   .blinking-cursor {
     animation: blink 1s step-start infinite;
@@ -42,15 +45,31 @@
   }
   .power-choice {
     cursor: pointer;
+    padding: 10px 0;
   }
   #power-screen img {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     margin-bottom: 10px;
   }
   #boot-line {
     position: absolute;
-    bottom: 30px;
-    left: 20px;
+    bottom: 10px;
+    left: 10px;
+    font-family: monospace;
+    color: #ccc;
+  }
+  @media (max-width: 600px) {
+    body {
+      margin: 10px;
+      font-size: 14px;
+    }
+    #power-screen img {
+      max-width: 100%;
+    }
+    .power-options {
+      font-size: 14px;
+    }
   }
 </style>
 
@@ -64,7 +83,7 @@
     EPA POLLUTION PREVENTER
   </div>
   <div id="boot-lines"></div>
-  <div id="boot-line">Press DEL to enter SETUP</div>
+  <div id="boot-line" style="display:none;">Press DEL to enter SETUP</div>
 </div>
 
 <div id="second-boot" style="white-space:pre; color:#ccc; font-family:monospace; display: none;">
@@ -86,7 +105,7 @@ Starting MS-DOS... <span class="blinking-cursor">|</span>
 </div>
 
 <div id="power-screen" class="power-screen">
-  <img src="https://raw.githubusercontent.com/CloudStrife7/command/main/pcmain.png" alt="PC">
+  <img src="PC.png" alt="PC">
   <div class="power-options">
     What would you like to do?
 
@@ -159,6 +178,7 @@ Starting MS-DOS... <span class="blinking-cursor">|</span>
     document.getElementById('boot').style.display = 'block';
     playStartupSounds();
     animateBoot(bootLines, delays, () => {
+      document.getElementById('boot-line').style.display = 'block';
       setTimeout(() => {
         document.getElementById('boot').style.display = 'none';
         document.getElementById('second-boot').style.display = 'block';
@@ -166,7 +186,7 @@ Starting MS-DOS... <span class="blinking-cursor">|</span>
           document.cookie = 'visited=true; max-age=31536000';
           showTerminal();
         }, 4000);
-      }, 5000); // 5 second pause with blinking cursor
+      }, 5000);
     });
   }
 
