@@ -117,7 +117,7 @@ Starting MS-DOS... <span class="blinking-cursor">|</span>
 </div>
 
 <div id="power-screen" class="power-screen">
-  <img src="pcmain.png" alt="PC">
+  <img src="PC.png" alt="PC">
   <div class="power-options">
     What would you like to do?
 
@@ -129,7 +129,40 @@ Starting MS-DOS... <span class="blinking-cursor">|</span>
   </div>
 </div>
 
-<div id="terminal" style="display:none;"></div>
+<div id="terminal" style="display:none;">
+Welcome to Zach's Terminal...
+------------------------------------------------ This is my simple page to tell you about my projects. ------------------------------------------------
+
+<div class="folder" onclick="toggleContent('gameIdeas')">C:\Projects\game-ideas\</div>
+<div id="gameIdeas" class="content">
+  - idea1.txt
+  - prototype.exe
+</div>
+
+<div class="folder" onclick="toggleContent('vrchatWorlds')">C:\Projects\vrchat-worlds\</div>
+<div id="vrchatWorlds" class="content">
+  - lower-level.unity
+  - assets/
+</div>
+
+<div class="folder" onclick="toggleContent('artwork')">C:\Projects\artwork\</div>
+<div id="artwork" class="content">
+  - boba-fett.png
+  - sketchbook.psd
+</div>
+
+<div class="folder" onclick="toggleContent('blogPosts')">C:\Projects\blog-posts\</div>
+<div id="blogPosts" class="content">
+  - nostalgia.md
+  - vr-gaming.txt
+</div>
+
+<div class="folder" onclick="toggleContent('music')">C:\Projects\music\</div>
+<div id="music" class="content">
+  - chiptune.mp3
+  - retro-theme.wav
+</div>
+</div>
 
 <script>
   function toggleContent(id) {
