@@ -1,0 +1,253 @@
+<style>
+  body {
+    background-color: black;
+    color: #ccc;
+    font-family: monospace;
+    margin: 20px;
+  }
+  .blinking-cursor {
+    animation: blink 1s step-start infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  .content {
+    display: none;
+    margin-left: 20px;
+  }
+  .folder {
+    cursor: pointer;
+    display: block;
+    margin-top: 5px;
+  }
+  .energy-star {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: #ffff00;
+    font-weight: bold;
+    font-size: 14px;
+    white-space: pre;
+    line-height: 1.1;
+  }
+  .power-screen {
+    text-align: center;
+    margin-top: 100px;
+    white-space: pre;
+  }
+  .power-options {
+    margin-top: 20px;
+    text-align: left;
+    display: inline-block;
+  }
+  .power-choice {
+    cursor: pointer;
+  }
+  #power-screen img {
+    width: 400px;
+    margin-bottom: 10px;
+  }
+  #boot-line {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+  }
+</style>
+
+<div id="boot" style="white-space:pre; color:#ccc; font-family:monospace; position: relative; display: none;">
+  <div class="energy-star">
+     ______
+    /      \
+   / ENERGY \
+   \  STAR  /
+    \______/  
+    EPA POLLUTION PREVENTER
+  </div>
+  <div id="boot-lines"></div>
+  <div id="boot-line">Press DEL to enter SETUP</div>
+</div>
+
+<div id="second-boot" style="white-space:pre; color:#ccc; font-family:monospace; display: none;">
+Award Software, Inc.
+System Configurations
+
+CPU Type        : 80486DX2          Base Memory       : 640K
+Co-Processor    : Installed         Extended Memory   : 15360K
+CPU Clock       : 66MHz             Cache Memory      : 1024K
+
+Diskette Drive A : 1.44M, 3.5 in.   Display Type      : EGA/VGA
+Diskette Drive B : 1.2M , 5.25 in.  Serial Port(s)    : 3F8 2F8
+Pri. Master Disk : CHS ,Mode 2, 528MB  Parallel Port(s) : 378
+Pri. Slave Disk  : None
+Sec. Master Disk : None
+Sec. Slave Disk  : None
+
+Starting MS-DOS... <span class="blinking-cursor">|</span>
+</div>
+
+<div id="power-screen" class="power-screen">
+  <img src="https://raw.githubusercontent.com/CloudStrife7/command/main/pcmain.png" alt="PC">
+  <div class="power-options">
+    What would you like to do?
+
+    <div class="power-choice" onclick="startBoot()">&gt; [1] Press the power button.</div>
+    <div class="power-choice" onclick="alert('You look around the room. Nothing seems unusual...')">&gt; [2] Look around the room.</div>
+    <div class="power-choice" onclick="alert('You decide to leave everything untouched...')">&gt; [3] Leave the desk untouched.</div>
+
+    <div><input id="boot-input" type="text" maxlength="1" autofocus style="background:black; border:none; color:#ccc; font-family:monospace; font-size:16px; width:20px;"> <span class="blinking-cursor">|</span></div>
+  </div>
+</div>
+
+<div id="terminal" style="display:none;">
+  <div id="welcome">Welcome to Zach's Terminal...<span class="blinking-cursor">|</span></div>
+  <div id="intro">------------------------------------------------ This is my simple page to tell you about my projects. -------------------------------------------------</div>
+
+  <div class="dir">
+    <span class="folder" onclick="toggleContent('game-ideas')">C:\Projects\game-ideas\</span>
+    <div id="game-ideas" class="content">[Game ideas content here]</div>
+
+    <span class="folder" onclick="toggleContent('vrchat-worlds')">C:\Projects\vrchat-worlds\</span>
+    <div id="vrchat-worlds" class="content">[VRChat worlds content here]</div>
+
+    <span class="folder" onclick="toggleContent('artwork')">C:\Projects\artwork\</span>
+    <div id="artwork" class="content">[Artwork content here]</div>
+
+    <span class="folder" onclick="toggleContent('blog-posts')">C:\Projects\blog-posts\</span>
+    <div id="blog-posts" class="content">[Blog posts content here]</div>
+
+    <span class="folder" onclick="toggleContent('music')">C:\Projects\music\</span>
+    <div id="music" class="content">
+      -------- Album 1<br>
+      -------- Album 2<br>
+      -------- Album 3<br>
+      <div class="ascii-player" onclick="toggleMusic()">
+        +-----------------------------+<br>
+        | ZachAMP v1.0                |<br>
+        |-----------------------------|<br>
+        | ▶ Pixel Dreams              |<br>
+        +-----------------------------+
+      </div>
+      // Experimental soundtracks and synth-driven compositions.
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleContent(id) {
+    const el = document.getElementById(id);
+    el.style.display = el.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function toggleMusic() {
+    if (!window.audio) {
+      window.audio = new Audio('https://github.com/CloudStrife7/command/blob/main/Pixel%20Dreams.mp3?raw=true');
+    }
+    if (window.audio.paused) {
+      window.audio.play();
+    } else {
+      window.audio.pause();
+    }
+  }
+
+  function showTerminal() {
+    document.getElementById('second-boot').style.display = 'none';
+    document.getElementById('terminal').style.display = 'block';
+  }
+
+  function startBoot() {
+    document.getElementById('power-screen').style.display = 'none';
+    document.getElementById('boot').style.display = 'block';
+    playStartupSounds();
+    animateBoot(bootLines, delays, () => {
+      setTimeout(() => {
+        document.getElementById('boot').style.display = 'none';
+        document.getElementById('second-boot').style.display = 'block';
+        setTimeout(() => {
+          document.cookie = 'visited=true; max-age=31536000';
+          showTerminal();
+        }, 4000);
+      }, 5000); // 5 second pause with blinking cursor
+    });
+  }
+
+  function animateBoot(lines, delays, onComplete) {
+    const bootEl = document.getElementById('boot-lines');
+    let index = 0;
+
+    function addNextLine() {
+      if (index < lines.length) {
+        if (lines[index] === "Memory Test :") {
+          bootEl.innerHTML += lines[index] + ' ';
+          animateMemoryCount(() => {
+            bootEl.innerHTML += "Memory Test OK\n";
+            index++;
+            setTimeout(addNextLine, delays[index] || 500);
+            index++;
+          });
+        } else {
+          bootEl.innerHTML += lines[index] + '\n';
+          setTimeout(addNextLine, delays[index] || 500);
+          index++;
+        }
+      } else {
+        onComplete();
+      }
+    }
+
+    addNextLine();
+  }
+
+  function animateMemoryCount(callback) {
+    const bootEl = document.getElementById('boot-lines');
+    let memory = 0;
+    const step = 4096;
+    const maxMemory = 65536;
+
+    function incrementMemory() {
+      if (memory <= maxMemory) {
+        let padded = memory.toString().padStart(6, '0');
+        bootEl.innerHTML = bootEl.innerHTML.replace(/Memory Test : .*/, 'Memory Test : ' + padded + 'K');
+        memory += step;
+        setTimeout(incrementMemory, 50);
+      } else {
+        callback();
+      }
+    }
+
+    incrementMemory();
+  }
+
+  function playStartupSounds() {
+    const beep = new Audio('https://www.soundjay.com/button/beep-07.wav');
+    const fan = new Audio('https://www.soundjay.com/mechanical/fan-01.mp3');
+    beep.play();
+    setTimeout(() => fan.play(), 200);
+  }
+
+  window.onload = function () {
+    const firstVisit = !document.cookie.includes('visited=true');
+    if (firstVisit) {
+      document.getElementById('power-screen').style.display = 'block';
+      document.getElementById('boot-input').addEventListener('keypress', function (e) {
+        if (e.key === '1') {
+          startBoot();
+        }
+      });
+    } else {
+      showTerminal();
+    }
+  }
+
+  const bootLines = [
+    "Award Modular BIOS v4.50G, An Energy Star Ally",
+    "Copyright (C) 1984-95, Award Software, Inc.",
+    "",
+    "9/7/95",
+    "",
+    "80486DX2 CPU at 66MHz",
+    "Memory Test :",
+    "",
+    "09/07/95-SiS-496-497/A/B-2A4IBC32C-00"
+  ];
+  const delays = [700, 700, 500, 500, 500, 700, 0, 700, 700];
+</script>
